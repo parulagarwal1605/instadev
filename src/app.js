@@ -14,22 +14,16 @@ const app = express();
 app.use(express.json());
 
 app.post("/signup",async(req,res)=>{
-    console.log("hi",req.body);
+   
     //Creating a new instance of the user model
-//    const user= new User({
-//         firstName:"ijay",
-//         lastName:"agarwal",
-//         emailId:"juw",
-//         gender:"female",
-//         age:9
-//     })
-//     try{
-//         await user.save();
-//         res.send("success");
-//     }catch(error){
-//         res.status(400).send("d",error)
+   const user= new User(req.body)
+    try{
+        await user.save();
+        res.send("success");
+    }catch(error){
+        res.status(400).send("d",error)
       
-//     }
+    }
    
 })
 connectDb().then(()=>{
