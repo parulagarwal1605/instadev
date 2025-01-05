@@ -26,6 +26,44 @@ app.post("/signup",async(req,res)=>{
     }
    
 })
+app.get("/user",async(req, res)=>{
+    const userEmail= req.body.emailId;
+    console.log("j",userEmail)
+    try{
+       
+      const users = await User.findOne({emailId:userEmail}) 
+       res.send(users);
+    }catch(err){
+     res.status(400).send("ger",err)
+    }
+})
+
+app.get("/feed",async(req,res)=>{
+
+ try{
+    const user = await User.find({});
+    res.send(user)
+
+ }catch(err){
+    res.status(400).send("something went wronh")
+ }
+
+})
+
+//delete api findByIdAndDelete(id) is a shorthand for findOneAndDelete({ _id: id }).
+
+
+app.delete('/user',async(req, res)=>{
+    const deluser = req.body.id
+    try{
+        console.log("id", deluser)
+        const del =await User.findByIdAndDelete(deluser);
+        res.send("deleted")
+    }
+    catch(err){
+res.status(400).send(err)
+    }
+})
 connectDb().then(()=>{
     console.log("connection done");
 
